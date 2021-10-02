@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 [ExecuteAlways]
 
 public class CoordinateWriter : MonoBehaviour
 {
+    [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color blockedColor = Color.red;
+
     TextMeshPro coordinateLabel;
     Vector2Int coordinates =  new Vector2Int();
+    Waypoint waypoint;
 
     void Awake(){
         coordinateLabel = GetComponent<TextMeshPro>();
+        coordinateLabel.enabled = false;
+        waypoint = GetComponentInParent<Waypoint>();
         DisplayCoordinates();
     }
     void Update()
@@ -20,6 +27,25 @@ public class CoordinateWriter : MonoBehaviour
         {
             DisplayCoordinates(); 
             UpdateObjectName();
+        }
+
+        ColorCoordinates();
+        ToggleLabels();
+    }
+
+    void ToggleLabels(){
+        if(Input.GetKeyDown(KeyCode.C)){
+            coordinateLabel.enabled = !coordinateLabel.IsActive();
+        }
+    }
+
+     void ColorCoordinates()
+    {
+        if(waypoint.IsPlaceable){
+            coordinateLabel.color = defaultColor;
+        }
+        else{
+            coordinateLabel.color = blockedColor;
         }
     }
 
