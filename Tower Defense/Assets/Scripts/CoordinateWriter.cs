@@ -50,8 +50,11 @@ public class CoordinateWriter : MonoBehaviour
     }
 
     void DisplayCoordinates(){
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/UnityEditor.EditorSnapSettings.move.x);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/UnityEditor.EditorSnapSettings.move.z);
+        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/10);
+        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/10);
+
+        //coordinates.x = Mathf.RoundToInt(transform.parent.position.x/UnityEditor.EditorSnapSettings.move.x);
+        //coordinates.y = Mathf.RoundToInt(transform.parent.position.z/UnityEditor.EditorSnapSettings.move.z);
         
         coordinateLabel.text = coordinates.x + "," + coordinates.y;
     }
