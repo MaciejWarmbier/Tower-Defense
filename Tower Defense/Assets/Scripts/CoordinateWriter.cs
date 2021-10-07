@@ -30,8 +30,10 @@ public class CoordinateWriter : MonoBehaviour
         {
             DisplayCoordinates(); 
             UpdateObjectName();
+            coordinateLabel.enabled = true;
         }
 
+        
         SetLabelColor();
         ToggleLabels();
     }

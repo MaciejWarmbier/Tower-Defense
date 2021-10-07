@@ -51,11 +51,12 @@ public class EnemyMover : MonoBehaviour
 
         for(int i=1; i<path.Count; i++)
         {
+            
             Vector3 startPosition = gameObject.transform.position;
             Vector3 endPosition = gridManager.GetPostionFromCoordinates(path[i].coordinates);
             float travelPercent = 0f;
             transform.LookAt(endPosition);
-
+            Debug.Log("Start = " +startPosition + " End  = "+ endPosition);
             while (travelPercent < 1f)
             {
                 travelPercent += Time.deltaTime * enemySpeed;
