@@ -20842,11 +20842,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7697019728811840000, guid: b1ac7a5aa1c98df4592dec5cbda55bcd, type: 3}
       propertyPath: poolSize
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7697019728811840000, guid: b1ac7a5aa1c98df4592dec5cbda55bcd, type: 3}
       propertyPath: spawnTime
-      value: 1.5
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 7697019728811840002, guid: b1ac7a5aa1c98df4592dec5cbda55bcd, type: 3}
       propertyPath: m_Name
