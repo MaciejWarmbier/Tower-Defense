@@ -8,20 +8,14 @@ public class TargetLocator : MonoBehaviour
     [SerializeField] float towerRange = 15f;
     [SerializeField] ParticleSystem projectileParticles;
     Transform target;
-    // Start is called before the first frame update
-    void Start()
-    {
-        target = FindObjectOfType<Enemy>().transform;
-    }
-
-    // Update is called once per frame
-    void Update()
+        void Update()
     {
         FindClosestTarget();
         AimWeapon();
     }
 
     void FindClosestTarget(){
+        
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         Transform closestTarget = null;
         float maxDistatnce = Mathf.Infinity;
@@ -35,8 +29,10 @@ public class TargetLocator : MonoBehaviour
         }
 
         target = closestTarget;
+        
     }
     void AimWeapon(){
+        if(target != null){
         float targetDistance = Vector3.Distance(transform.position, target.position);
         
         upperBallista.LookAt(target.position);
@@ -46,6 +42,8 @@ public class TargetLocator : MonoBehaviour
         else {
             Attack(false);
         }
+        }
+        
     }
 
     void Attack(bool isActive){

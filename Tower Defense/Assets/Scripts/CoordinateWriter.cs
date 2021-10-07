@@ -10,15 +10,18 @@ public class CoordinateWriter : MonoBehaviour
 {
     [SerializeField] Color defaultColor = Color.white;
     [SerializeField] Color blockedColor = Color.red;
+    [SerializeField] Color pathColor = Color.blue;
+    [SerializeField] Color exploredColor = Color.yellow;
 
     TextMeshPro coordinateLabel;
     Vector2Int coordinates =  new Vector2Int();
-    Waypoint waypoint;
+    GridManager gridManager;
+    
 
     void Awake(){
         coordinateLabel = GetComponent<TextMeshPro>();
         coordinateLabel.enabled = false;
-        waypoint = GetComponentInParent<Waypoint>();
+        gridManager = FindObjectOfType<GridManager>();
         DisplayCoordinates();
     }
     void Update()
@@ -41,20 +44,30 @@ public class CoordinateWriter : MonoBehaviour
 
      void SetLabelColor()
     {
-        if(waypoint.IsPlaceable){
-            coordinateLabel.color = defaultColor;
+        if(gridManager == null){
+            return;
         }
-        else{
+
+        Node node = gridManager.GetNode(coordinates);
+        if(node == null) return;
+
+        if(!node.isWalkable){
             coordinateLabel.color = blockedColor;
         }
+        else if(node.isPath){
+            coordinateLabel.color = pathColor;
+        }
+        else if(node.isExplored){
+            coordinateLabel.color = exploredColor;
+        }
+        else coordinateLabel.color= defaultColor;
     }
 
     void DisplayCoordinates(){
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/10);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/10);
+        if(gridManager == null) return;
 
-        //coordinates.x = Mathf.RoundToInt(transform.parent.position.x/UnityEditor.EditorSnapSettings.move.x);
-        //coordinates.y = Mathf.RoundToInt(transform.parent.position.z/UnityEditor.EditorSnapSettings.move.z);
+        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/gridManager.UnityGridSizeSnap);
+        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/gridManager.UnityGridSizeSnap);
         
         coordinateLabel.text = coordinates.x + "," + coordinates.y;
     }
