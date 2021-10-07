@@ -7,7 +7,7 @@ public class EnemyMover : MonoBehaviour
 {
 
     [SerializeField] List<Node> path = new List<Node>();
-    [SerializeField] [Range(0,5f)] float enemySpeed = 1f;
+    [SerializeField] [Range(0,5f)] float enemySpeed = 0.6f;
     Enemy enemy;
     Pathfinder pathfinder;
     GridManager gridManager;
@@ -56,7 +56,7 @@ public class EnemyMover : MonoBehaviour
             Vector3 endPosition = gridManager.GetPostionFromCoordinates(path[i].coordinates);
             float travelPercent = 0f;
             transform.LookAt(endPosition);
-            Debug.Log("Start = " +startPosition + " End  = "+ endPosition);
+            
             while (travelPercent < 1f)
             {
                 travelPercent += Time.deltaTime * enemySpeed;

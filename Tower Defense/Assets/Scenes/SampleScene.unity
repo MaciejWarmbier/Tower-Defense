@@ -8933,6 +8933,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8137366840665145511, guid: ee08e1ac3bad9dc4e9b8f5bd66982959, type: 3}
+      propertyPath: isPlaceable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee08e1ac3bad9dc4e9b8f5bd66982959, type: 3}
 --- !u!4 &985636889 stripped
