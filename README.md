@@ -1,2 +1,2 @@
 # Tower-Defense
-Simple unity "tower defense" style game
+Tower Defense Game in which I mostly played with number of different objects and classes. Enemies are created with object pool and find their path along the rails. There is also simple Bank Mechanic which rewards player for killing and enemy and penalize if any reaches the end. Whole project finally starts to utilize Object Oriented programming which I find myself most comfortable with. 
