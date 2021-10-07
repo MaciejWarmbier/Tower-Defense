@@ -22,15 +22,15 @@ public class ObjectPool : MonoBehaviour
         pool = new GameObject[poolSize];
 
         for(int i = 0; i< pool.Length ; i++){
-            pool[i] = Instantiate(enemy,enemy.transform.position,Quaternion.identity);
+            pool[i] = Instantiate(enemy,transform);
             pool[i].SetActive(false);
         }
     }
 
     void EnableObjectInPool(){
-        foreach(GameObject enemy in pool){
-            if(!enemy.activeInHierarchy){
-                enemy.SetActive(true);
+        for(int i=0;i<pool.Length;i++){
+            if(pool[i].activeInHierarchy == false){
+                pool[i].SetActive(true);
                 return;
             }
         }

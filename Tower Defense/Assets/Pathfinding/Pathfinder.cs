@@ -33,14 +33,16 @@ public class Pathfinder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
         GetNewPath();
     }
 
     public List<Node> GetNewPath(){
+        return GetNewPath(startCoordinates);
+    }
+
+    public List<Node> GetNewPath(Vector2Int coordinates){
         gridManager.ResetNodes();
-        BFS();
+        BFS(coordinates);
         return BuildPath();
     }
 
@@ -65,15 +67,15 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    void BFS(){
+    void BFS(Vector2Int coordinates){
         startNode.isWalkable = true;
         endNode.isWalkable = true;
         frontier.Clear();
         reached.Clear();
         bool isRunning = true;
 
-        frontier.Enqueue(startNode);
-        reached.Add(startCoordinates, startNode);
+        frontier.Enqueue(grid[coordinates]);
+        reached.Add(coordinates, grid[coordinates]);
         
         while(frontier.Count >0 && isRunning){
             currentSearchNode = frontier.Dequeue();
@@ -117,15 +119,14 @@ public class Pathfinder : MonoBehaviour
                 return true;
             }
 
-            return false;
         }
 
         return false;
     }
 
     public void NotifyReceivers(){
-        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
-        Debug.Log("Message Sent");
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
+        
     }
 
     
