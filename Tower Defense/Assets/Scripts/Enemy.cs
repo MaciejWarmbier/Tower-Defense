@@ -23,4 +23,7 @@ public class Enemy : MonoBehaviour
         bank.Withdrawal(goldPenalty);
     }
     
+    void SomeText(){
+        Debug.Log("Heyooo Enemy");
+    }
 }

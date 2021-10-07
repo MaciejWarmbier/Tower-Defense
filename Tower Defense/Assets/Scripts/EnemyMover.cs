@@ -5,6 +5,68 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
+
+    [SerializeField] List<Node> path = new List<Node>();
+    [SerializeField] [Range(0,5f)] float enemySpeed = 1f;
+    Enemy enemy;
+    Pathfinder pathfinder;
+    GridManager gridManager;
+    void OnEnable()
+    { 
+        RecalculatePath();
+        ReturnToStart();
+        StartCoroutine(FollowPath());
+    }
+
+    private void Awake() {
+        enemy = GetComponent<Enemy>();
+        gridManager = FindObjectOfType<GridManager>();
+        pathfinder = FindObjectOfType<Pathfinder>();
+    }
+    void RecalculatePath(){
+        Debug.Log("Message Received");
+        path.Clear();
+        path = pathfinder.GetNewPath();
+        
+    }
+
+    void ReturnToStart(){
+        transform.position = gridManager.GetPostionFromCoordinates(pathfinder.StartCoordinates);
+    }
+
+    void FinishPath()
+    {
+        enemy.StealGold();
+        gameObject.SetActive(false);
+    }
+    IEnumerator FollowPath()
+    {
+
+        for(int i=0; i<path.Count; i++)
+        {
+            Vector3 startPosition = gameObject.transform.position;
+            Vector3 endPosition = gridManager.GetPostionFromCoordinates(path[i].coordinates);
+            float travelPercent = 0f;
+            transform.LookAt(endPosition);
+
+            while (travelPercent < 1f)
+            {
+                travelPercent += Time.deltaTime * enemySpeed;
+                transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+                yield return new WaitForEndOfFrame();
+            }
+
+        }
+
+        FinishPath();
+
+    }
+
+    
+
+
+
+    /*
     [SerializeField] List<Tile> path = new List<Tile>();
     [SerializeField] [Range(0,5f)] float enemySpeed = 1f;
     Enemy enemy;
@@ -64,5 +126,5 @@ public class EnemyMover : MonoBehaviour
 
     }
 
-    
+    */
 }

@@ -41,5 +41,8 @@ public class Bank : MonoBehaviour
         SceneManager.LoadScene(currentScene.buildIndex);
     }
 
+    void SomeText(){
+            Debug.Log("Heyooo Bank");
+        }
    
 }
